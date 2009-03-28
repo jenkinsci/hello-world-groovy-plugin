@@ -1,4 +1,4 @@
-package hudson.plugins.hello_world;
+package hudson.plugins.hello_world_groovy;
 
 import hudson.Launcher;
 import hudson.Extension;
@@ -27,13 +27,16 @@ import net.sf.json.JSONObject;
  *
  * <p>
  * When a build is performed, the {@link #perform(Build, Launcher, BuildListener)} method
- * will be invoked. 
+ * will be invoked.
  *
  * @author Kohsuke Kawaguchi
  */
 public class HelloWorldBuilder extends Builder {
 
-    private final String name;
+    /**
+     * We'll use this from the <tt>config.jelly</tt>.
+     */
+    final String name;
 
     /**
      * This annotation tells Hudson to call this constructor, with
@@ -44,40 +47,13 @@ public class HelloWorldBuilder extends Builder {
         this.name = name;
     }
 
-    /**
-     * We'll use this from the <tt>config.jelly</tt>.
-     */
-    public String getName() {
-        return name;
-    }
-
     @Override
     public boolean perform(AbstractBuild build, Launcher launcher, BuildListener listener) {
-        // this is where you 'build' the project
-        // since this is a dummy, we just say 'hello world' and call that a build
-
-        // this also shows how you can consult the global configuration of the builder
-        if(getDescriptor().useFrench())
-            listener.getLogger().println("Bonjour, "+name+"!");
+        if(descriptor.useFrench())
+            listener.getLogger().println("Bonjour, ${name}!");
         else
-            listener.getLogger().println("Hello, "+name+"!");
+            listener.getLogger().println("Hello, ${name}!");
         return true;
-    }
-
-    /**
-     * Hudson defines a method {@link Builder#getDescriptor()}, which
-     * returns the corresponding {@link Descriptor} object.
-     *
-     * Since we know that it's actually {@link DescriptorImpl}, override
-     * the method and give a better return type, so that we can access
-     * {@link DescriptorImpl} methods more easily.
-     *
-     * This is not necessary, but just a coding style preference.
-     */
-    @Override
-    public DescriptorImpl getDescriptor() {
-        // see Descriptor javadoc for more about what a descriptor is.
-        return (DescriptorImpl)super.getDescriptor();
     }
 
     /**

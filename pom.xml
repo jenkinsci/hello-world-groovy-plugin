@@ -10,4 +10,29 @@
   <artifactId>hello-world-groovy</artifactId>
   <packaging>hpi</packaging>
   <name>Hudson hello-world plugin (written in Groovy)</name>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.groovy.maven</groupId>
+        <artifactId>gmaven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generateStubs</goal>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.kohsuke.stapler</groupId>
+      <artifactId>stapler</artifactId>
+      <version>1.101-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
 </project>
