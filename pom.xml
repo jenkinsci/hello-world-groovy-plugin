@@ -30,11 +30,6 @@
   </build>
 
   <dependencies>
-    <dependency>
-      <groupId>org.kohsuke.stapler</groupId>
-      <artifactId>stapler</artifactId>
-      <version>1.101-SNAPSHOT</version>
-    </dependency>
         <dependency>
             <groupId>org.jvnet.hudson.main</groupId>
             <artifactId>hudson-war</artifactId>
